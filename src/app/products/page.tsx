@@ -8,7 +8,10 @@ type Products = {
 
 export default async function ProductsPage() {
   try {
-    const response = await fetch("http://192.168.0.145:3001/products");
+    const response = await fetch("http://192.168.0.145:3001/products", {
+      next: { revalidate: 10 }, // Revalidate every 10 seconds
+      cache: "no-store", // Disable caching
+    });
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
     }
